@@ -15,7 +15,7 @@ if ($file) {
         }
     }
 
-    // Account for the last word if any
+    
     if (!empty($word)) {
         $wordCount++;
     }
