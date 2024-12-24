@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Content Filtering</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dynamic Content Filtering</h1>
+    <div>
+        <label for="category-filter">Category:</label>
+        <select id="category-filter">
+            <option value="All">All</option>
+            <option value="Category 1">Category 1</option>
+            <option value="Category 2">Category 2</option>
+            <option value="Category 3">Category 3</option>
+        </select>
+
+        <label for="min-price">Min Price:</label>
+        <input type="number" id="min-price" min="0" step="1">
+
+        <label for="max-price">Max Price:</label>
+        <input type="number" id="max-price" min="0" step="1">
+    </div>
+    <div id="item-list"></div>
+
+    <script>
+        const items = [
+            { id: 1, name: 'Product 1', category: 'Category 1', price: 100 },
+            { id: 2, name: 'Product 2', category: 'Category 2', price: 150 },
+            { id: 3, name: 'Product 3', category: 'Category 1', price: 200 },
+            { id: 4, name: 'Product 4', category: 'Category 3', price: 50 },
+            { id: 5, name: 'Product 5', category: 'Category 2', price: 120 },
+        ];
+
+        function renderItems(filteredItems) {
+            const itemListElement = document.getElementById('item-list');
+            itemListElement.innerHTML = '';
+            filteredItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('item');
+                itemElement.innerHTML = `
+                    <p>${item.name} - ${item.category} - $${item.price}</p>
+                `;
+                itemListElement.appendChild(itemElement);
+            });
+        }
+
+        function filterItems() {
+            const categoryFilter = document.getElementById('category-filter').value;
+            const minPrice = parseFloat(document.getElementById('min-price').value) || 0;
+            const maxPrice = parseFloat(document.getElementById('max-price').value) || Infinity;
+
+            const filteredItems = items.filter(item => {
+                return (categoryFilter === 'All' || item.category === categoryFilter) &&
+                       item.price >= minPrice &&
+                       item.price <= maxPrice;
+            });
+
+            renderItems(filteredItems);
+        }
+
+        document.getElementById('category-filter').addEventListener('change', filterItems);
+        document.getElementById('min-price').addEventListener('input', filterItems);
+        document.getElementById('max-price').addEventListener('input', filterItems);
+    </script>
+
+</body>
+</html>
