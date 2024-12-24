@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Numbers in Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Store Numbers in an Array</h1>
+    <p>Enter numbers separated by commas:</p>
+    <input type="text" id="numberInput" placeholder="e.g., 1, 2, 3, 4">
+    <button onclick="storeNumbers()">Submit</button>
+    <div id="result"></div>
+
+    <script>
+        function storeNumbers() {
+            
+            const input = document.getElementById("numberInput").value;
+
+             
+            const numbers = input.split(",").map(num => Number(num.trim()));
+
+             
+            document.getElementById("result").textContent = `Stored Array: [${numbers.join(", ")}]`;
+        }
+    </script>
+</body>
+</html>
